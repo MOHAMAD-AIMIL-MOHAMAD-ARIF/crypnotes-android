@@ -1,4 +1,4 @@
-# CrypNotes Android v1 (MVP) — Finalized Product Specification
+# CrypNotes Android v1 — Finalized Product Specification
 
 ## 1\) Product Scope
 
