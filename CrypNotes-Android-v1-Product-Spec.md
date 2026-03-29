@@ -2,19 +2,12 @@
 
 ## 1\) Product Scope
 
-### 1.1 In-scope (v1 Android MVP)
-
-All requested features **except**:
-
-* **#14 Export/share note as TXT** (out of scope for v1)
-* **#16 Encrypted multi-device sync** (out of scope for v1 release milestone)
-
-### 1.2 Delivery versions
+### 1.1 Delivery versions
 
 * **v1:** Local vault, offline-first, no network sync.
 * **v2:** Zero-knowledge sync and backend APIs.
 
-### 1.3 Platform/stack constraints
+### 1.2 Platform/stack constraints
 
 * Fresh greenfield Android app.
 * Native Android UI with Kotlin + Jetpack Compose.

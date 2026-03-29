@@ -8,7 +8,7 @@
 |Fixed Argon2id baseline hardness|The Argon2id configuration for v1 shall be fixed to memory 64 MiB, iterations 3, parallelism 1 (non-adaptive across device tiers) to provide consistent password-hardening behavior.|
 |Device-bound quick unlock key|The system shall generate a per-device DK in Android Keystore and use it only to wrap/unwrap DEK for local quick unlock when enabled by policy.|
 |Keystore-gated local DEK recovery|The persisted local wrapped DEK (`local\_wrapped\_dek`) shall only be decryptable through Android Keystore policy gates (biometric and/or device credential as configured).|
-|Credential fallback and recovery path|If biometric unlock fails or DK becomes invalidated, the system shall provide password-based DEK recovery and allow re-establishing biometric quick unlock with a newly generated DK.|
+|Credential fallback and recovery path|If DK becomes invalidated, the system shall provide password-based DEK recovery and allow re-establishing biometric quick unlock with a newly generated DK.|
 |Vault lock and memory zeroization|On vault lock (including app background/exit per lock timer policy), the app shall zeroize decrypted in-memory note/cache material to minimize plaintext residency.|
 |Log/telemetry secret exclusion|Application logs, crash reports, and analytics shall never contain decrypted note content, attachment-sensitive metadata, passwords, keys/secrets, content-derived local search tokens, or any plaintext vault material.|
 |Screenshot privacy control|The app shall provide a user setting to enable/disable secure-screen behavior (`FLAG\_SECURE`) to control capture visibility in recents/screenshots.|
