@@ -1,6 +1,6 @@
 param(
     [string]$UdlPath = "crates/crypnotes-ffi/src/crypnotes.udl",
-    [string]$OutDir = "android/app/src/main/kotlin/com/crypnotes/core/bridge"
+    [string]$OutDir = "android/core/bridge/src/main/kotlin/com/crypnotes/core/bridge"
 )
 
 $ErrorActionPreference = "Stop"

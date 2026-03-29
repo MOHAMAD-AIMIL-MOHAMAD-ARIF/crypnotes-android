@@ -19,7 +19,7 @@ This directory defines the v1 package roots expected by the CrypNotes Android ar
 
 ## Kotlin UniFFI bindings
 
-Generate Kotlin bindings into `com.crypnotes.core.bridge` by running:
+Generate Kotlin bindings into `com.crypnotes.core.bridge` (`:core:bridge` module) by running:
 
 ```bash
 make generate-kotlin-bindings
