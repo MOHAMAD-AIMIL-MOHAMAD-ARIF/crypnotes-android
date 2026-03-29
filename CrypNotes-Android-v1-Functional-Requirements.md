@@ -13,7 +13,7 @@
 |FR-09: Zeroization on lock|On vault lock, decrypted in-memory notes/cache must be zeroized.|
 |FR-10: Quick unlock option|Users must be able to enable quick unlock using biometric/device credential instead of master password.|
 |FR-11: Unlock fallback|If biometric authentication fails, fallback to device credential must occur only when that setting is enabled.|
-|FR-12: Invalidated device key recovery|If DK is invalidated, the app must support password-based recovery by deriving KEK (Argon2id), decrypting `vault\\\_key\\\_blob` to recover DEK, and re-establishing biometric unlock with a new DK and `local\\\_wrapped\\\_dek`.|
+|FR-12: Invalidated device key recovery|If DK is invalidated, the app must support password-based recovery by deriving KEK (Argon2id), decrypting `vault\_key\_blob` to recover DEK, and re-establishing biometric unlock with a new DK and `local\_wrapped\_dek`.|
 |FR-13: Rich text formatting|The editor must support bold, italic, underline, highlight, headings H1/H2/H3, checklist, bulleted list, and numbered list.|
 |FR-14: Text/checklist conversion|Users must be able to convert note text to checklist and revert checklist back to text; conversion applies to all text in the note.|
 |FR-15: Undo/Redo|The editor must support Undo and Redo during note editing.|
