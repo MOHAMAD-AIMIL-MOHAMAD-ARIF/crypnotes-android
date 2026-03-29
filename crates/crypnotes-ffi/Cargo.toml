@@ -1,0 +1,21 @@
+[package]
+name = "crypnotes-ffi"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+crypnotes-crypto = { path = "../crypnotes-crypto" }
+crypnotes-doc = { path = "../crypnotes-doc" }
+crypnotes-ids = { path = "../crypnotes-ids" }
+crypnotes-lifecycle = { path = "../crypnotes-lifecycle" }
+crypnotes-reminders = { path = "../crypnotes-reminders" }
+secrecy.workspace = true
+thiserror.workspace = true
+uniffi.workspace = true
+uuid.workspace = true
+zeroize.workspace = true

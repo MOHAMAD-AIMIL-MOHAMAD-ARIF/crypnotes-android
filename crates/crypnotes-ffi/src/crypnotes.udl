@@ -1,0 +1,103 @@
+namespace crypnotes {};
+
+enum LockDelay { "Immediate", "Sec30", "Min1", "Min2", "Min5" };
+enum Recurrence { "None", "Daily", "Weekly", "Monthly", "Yearly" };
+enum NoteState { "Active", "Archived", "Trashed" };
+
+dictionary CryptoParams {
+  u32 argon_mem_mib;
+  u32 argon_iters;
+  u32 argon_lanes;
+};
+
+dictionary ReminderSpec {
+  i64 wall_clock_epoch_ms;
+  string tzid;
+  Recurrence recurrence;
+};
+
+dictionary NextTriggerResult {
+  i64? next_epoch_ms;
+  boolean suppressed;
+};
+
+dictionary TrashPolicy {
+  i64 trashed_at_epoch_ms;
+  i64 hard_delete_at_epoch_ms;
+};
+
+[Error]
+enum CrypNotesError {
+  "InvalidInput",
+  "CryptoFailure",
+  "DocumentFailure",
+  "ReminderFailure",
+  "Internal",
+};
+
+interface VaultCrypto {
+  constructor();
+
+  [Throws=CrypNotesError]
+  bytes derive_kek(string password, bytes salt, CryptoParams params);
+
+  [Throws=CrypNotesError]
+  bytes wrap_dek_with_kek(bytes dek, bytes kek);
+
+  [Throws=CrypNotesError]
+  bytes unwrap_dek_with_kek(bytes wrapped_dek, bytes kek);
+
+  [Throws=CrypNotesError]
+  bytes encrypt_payload(bytes dek, bytes plaintext, bytes aad);
+
+  [Throws=CrypNotesError]
+  bytes decrypt_payload(bytes dek, bytes ciphertext, bytes aad);
+};
+
+interface VaultSession {
+  constructor();
+
+  [Throws=CrypNotesError]
+  void lock_and_zeroize();
+
+  [Throws=CrypNotesError]
+  boolean is_unlocked();
+};
+
+interface NoteRules {
+  constructor();
+
+  [Throws=CrypNotesError]
+  void validate_note_document(string canonical_json);
+
+  [Throws=CrypNotesError]
+  u32 validate_note_char_limit(string plain_text);
+
+  [Throws=CrypNotesError]
+  string derive_display_title(string explicit_title, string canonical_json);
+
+  [Throws=CrypNotesError]
+  string convert_text_to_checklist(string canonical_json);
+
+  [Throws=CrypNotesError]
+  string convert_checklist_to_text(string canonical_json);
+};
+
+interface ReminderEngine {
+  constructor();
+
+  [Throws=CrypNotesError]
+  NextTriggerResult next_trigger(ReminderSpec spec, i64 now_epoch_ms, NoteState state);
+};
+
+interface LifecycleRules {
+  constructor();
+
+  TrashPolicy compute_trash_policy(i64 trashed_at_epoch_ms);
+  boolean is_reminder_suppressed(NoteState state);
+};
+
+interface Ids {
+  constructor();
+  string new_uuid_v7();
+};
