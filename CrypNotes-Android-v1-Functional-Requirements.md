@@ -26,8 +26,6 @@
 |FR-22: Reminder recurrence|Recurrence options must include None, Daily, Weekly, Monthly, and Yearly.|
 |FR-23: Reminder time semantics|Reminder recurrence must be timezone-anchored with DST handling: missing local times shift forward and repeated local times trigger once.|
 |FR-24: Reminder suppression by note state|Reminders must be disabled when associated notes are archived or trashed.|
-|FR-25: Local vault scope for v1|v1 must be offline-first with local vault only and no encrypted multi-device sync.|
-|FR-26: Excluded feature in v1|Export/share note as TXT must be out of scope for v1.|
 
 
 
