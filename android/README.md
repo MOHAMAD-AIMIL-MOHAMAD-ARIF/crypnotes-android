@@ -16,3 +16,17 @@ This directory defines the v1 package roots expected by the CrypNotes Android ar
 - `com.crypnotes.feature.settings`
 
 `PackageMarker.kt` files are placeholders so package roots are explicit before module wiring.
+
+## Kotlin UniFFI bindings
+
+Generate Kotlin bindings into `com.crypnotes.core.bridge` by running:
+
+```bash
+make generate-kotlin-bindings
+```
+
+Equivalent direct command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/generate-kotlin-bindings.ps1
+```
