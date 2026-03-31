@@ -78,6 +78,12 @@ pub enum CrypNotesError {
 #[derive(uniffi::Object)]
 pub struct VaultCrypto;
 
+impl Default for VaultCrypto {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[uniffi::export]
 impl VaultCrypto {
     #[uniffi::constructor]
@@ -145,6 +151,12 @@ pub struct VaultSession {
     state: Mutex<SessionState>,
 }
 
+impl Default for VaultSession {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[uniffi::export]
 impl VaultSession {
     #[uniffi::constructor]
@@ -173,6 +185,12 @@ impl VaultSession {
 
 #[derive(uniffi::Object)]
 pub struct NoteRules;
+
+impl Default for NoteRules {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 #[uniffi::export]
 impl NoteRules {
@@ -220,6 +238,12 @@ impl NoteRules {
 #[derive(uniffi::Object)]
 pub struct ReminderEngine;
 
+impl Default for ReminderEngine {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[uniffi::export]
 impl ReminderEngine {
     #[uniffi::constructor]
@@ -250,6 +274,12 @@ impl ReminderEngine {
 #[derive(uniffi::Object)]
 pub struct LifecycleRules;
 
+impl Default for LifecycleRules {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[uniffi::export]
 impl LifecycleRules {
     #[uniffi::constructor]
@@ -272,6 +302,12 @@ impl LifecycleRules {
 
 #[derive(uniffi::Object)]
 pub struct Ids;
+
+impl Default for Ids {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 #[uniffi::export]
 impl Ids {
