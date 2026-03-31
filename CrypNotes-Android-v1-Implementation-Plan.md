@@ -14,8 +14,8 @@ Solo Developer Implementation Checklist
 
 # Public APIs/Interfaces to Lock Early
 
-* Rust/UniFFI surface will expose stable objects for VaultCrypto, VaultSession, NoteRules, ReminderEngine, LifecycleRules, and Ids, expanded only to cover missing v1 use cases (vault bootstrap/recovery, attachment envelope helpers, richer error mapping).
-* crypnotes.udl enums and records must be treated as contract-first and versioned with additive-only changes after Phase 3.
+* Rust/UniFFI surface will expose stable objects for `VaultCrypto`, `VaultSession`, `NoteRules`, `ReminderEngine`, `LifecycleRules`, and `Ids`, expanded only to cover missing v1 use cases (vault bootstrap/recovery, attachment envelope helpers, richer error mapping).
+* `crypnotes.udl` enums and records must be treated as contract-first and versioned with additive-only changes after Phase 3.
 * Android data contracts will use the Room schema doc as source of truth (notes, labels, note\_labels, attachments, reminders, note\_order, vault\_meta, note\_index + FTS + triggers).
 
 
@@ -24,25 +24,25 @@ Solo Developer Implementation Checklist
 
 ## Rust Tasks
 
-☐ Standardize crate quality gates: fmt, clippy, unit tests across all workspace crates.
+☐ Standardize crate quality gates: `fmt`, `clippy`, unit tests across all workspace crates.
 
 ☐ Add shared version/constants module for doc schema, payload schema, and encryption container versions.
 
-☐ Ensure UniFFI generation flow is deterministic from crates/crypnotes-ffi/src/crypnotes.udl.
+☐ Ensure UniFFI generation flow is deterministic from `crates/crypnotes-ffi/src/crypnotes.udl`.
 
 ## Android Tasks
 
-☐ Replace minimal app shell with Compose + Navigation host and module wiring from app.
+☐ Replace minimal app shell with Compose + Navigation host and module wiring from `app`.
 
 ☐ Add required dependencies and plugins: Compose, Room, SQLCipher integration path, Hilt, Coroutines/Flow, WorkManager, Biometric.
 
-☐ Set baseline CI commands for cargo test and Gradle build/test.
+☐ Set baseline CI commands for `cargo test` and Gradle build/test.
 
 ## Exit Criteria
 
 ☐ Fresh clone builds Rust and Android without manual fixes.
 
-☐ Kotlin bindings generate successfully and compile in :core:bridge.
+☐ Kotlin bindings generate successfully and compile in `:core:bridge`.
 
 ☐ App launches into a Compose root screen.
 
@@ -60,11 +60,11 @@ Solo Developer Implementation Checklist
 
 ## Android Tasks
 
-☐ Implement keystore-backed DK lifecycle in core:platform:security (create, unwrap, invalidation handling).
+☐ Implement keystore-backed DK lifecycle in `core:platform:security` (create, unwrap, invalidation handling).
 
-☐ Implement vault\_meta persistence and startup vault state machine (first-run create vs unlock).
+☐ Implement `vault\_meta` persistence and startup vault state machine (first-run create vs unlock).
 
-☐ Build vault UI flow in feature:vault for password unlock, quick unlock toggle, and fallback policy.
+☐ Build vault UI flow in `feature:vault` for password unlock, quick unlock toggle, and fallback policy.
 
 ## Exit Criteria
 
@@ -92,7 +92,7 @@ Solo Developer Implementation Checklist
 
 ☐ Implement encrypted blob store for attachments (original + thumbnail refs).
 
-☐ Implement repositories in core:data for notes, labels, attachments, reminders, vault meta, note index/FTS.
+☐ Implement repositories in `core:data` for notes, labels, attachments, reminders, vault meta, note index/FTS.
 
 ## Exit Criteria
 
@@ -114,7 +114,7 @@ Solo Developer Implementation Checklist
 
 ## Android Tasks
 
-☐ Implement notes list/detail/editor in feature:notes with rich formatting controls.
+☐ Implement notes list/detail/editor in `feature:notes` with rich formatting controls.
 
 ☐ Implement FR organization features: pin/unpin, archive, trash, sorting modes, custom/manual order.
 
@@ -170,9 +170,9 @@ Solo Developer Implementation Checklist
 
 ## Android Tasks
 
-☐ Implement reminder CRUD UI in feature:reminders and note integration points.
+☐ Implement reminder CRUD UI in `feature:reminders` and note integration points.
 
-☐ Implement scheduler bridge (core:platform:notifications + WorkManager/AlarmManager) for local notifications.
+☐ Implement scheduler bridge (`core:platform:notifications` + WorkManager/AlarmManager) for local notifications.
 
 ☐ Enforce reminder suppression when note is archived/trashed; resume when restored.
 
@@ -198,7 +198,7 @@ Solo Developer Implementation Checklist
 
 ## Android Tasks
 
-☐ Implement settings for auto-lock timer options and secure-screen (FLAG\_SECURE) toggle.
+☐ Implement settings for auto-lock timer options and secure-screen (`FLAG\_SECURE`) toggle.
 
 ☐ Validate biometric failure fallback behavior exactly per policy.
 
