@@ -9,14 +9,16 @@ Solo Developer Implementation Checklist
 * Build v1 as an offline-first encrypted notes app using the existing Rust crate baseline plus currently scaffolded Android modules.
 * Deliver in 7 sequential phases so one developer can ship vertical slices without backtracking.
 * Keep v2 items out of scope: sync and TXT export/share.
-* 
+
+
 
 # Public APIs/Interfaces to Lock Early
 
 * Rust/UniFFI surface will expose stable objects for VaultCrypto, VaultSession, NoteRules, ReminderEngine, LifecycleRules, and Ids, expanded only to cover missing v1 use cases (vault bootstrap/recovery, attachment envelope helpers, richer error mapping).
 * crypnotes.udl enums and records must be treated as contract-first and versioned with additive-only changes after Phase 3.
 * Android data contracts will use the Room schema doc as source of truth (notes, labels, note\_labels, attachments, reminders, note\_order, vault\_meta, note\_index + FTS + triggers).
-* 
+
+
 
 # Phase 1: Foundations and Build Wiring
 
