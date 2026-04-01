@@ -1,6 +1,7 @@
 param(
     [string]$UdlPath = "crates/crypnotes-ffi/src/crypnotes.udl",
-    [string]$OutDir = "android/core/bridge/src/main/kotlin/com/crypnotes/core/bridge"
+    [string]$OutDir = "android/core/bridge/src/main/kotlin/com/crypnotes/core/bridge",
+    [string]$ExpectedUniffiBindgenVersion = "0.29.5"
 )
 
 $ErrorActionPreference = "Stop"
@@ -18,6 +19,15 @@ if (-not $bindgen) {
     throw "uniffi-bindgen is not installed. Install with: cargo install uniffi_bindgen --version 0.29.5"
 }
 
+& $bindgen.Source --version | Out-String -OutVariable bindgenVersionOutput | Out-Null
+if ($LASTEXITCODE -ne 0) {
+    throw "failed to query uniffi-bindgen version"
+}
+$bindgenVersion = ($bindgenVersionOutput.Trim() -replace "^uniffi-bindgen\s+", "")
+if ($bindgenVersion -ne $ExpectedUniffiBindgenVersion) {
+    throw "uniffi-bindgen version mismatch: expected $ExpectedUniffiBindgenVersion but found $bindgenVersion"
+}
+
 $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ("crypnotes-uniffi-kotlin-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
@@ -27,7 +37,7 @@ try {
         throw "uniffi-bindgen generation failed with exit code $LASTEXITCODE"
     }
 
-    $generated = Get-ChildItem -Path $tempDir -Recurse -File -Filter *.kt
+    $generated = Get-ChildItem -Path $tempDir -Recurse -File -Filter *.kt | Sort-Object -Property FullName
     if (-not $generated) {
         throw "No Kotlin files were generated."
     }
@@ -40,8 +50,11 @@ try {
     foreach ($file in $generated) {
         $content = Get-Content -Raw -LiteralPath $file.FullName
         $content = [regex]::Replace($content, "(?m)^package\s+[A-Za-z0-9_.]+", "package com.crypnotes.core.bridge")
+        # Normalize line endings so identical UDL produces identical bytes on all platforms.
+        $content = $content -replace "`r`n", "`n"
+        $content = $content -replace "`r", "`n"
         $target = Join-Path $outAbs $file.Name
-        Set-Content -LiteralPath $target -Value $content -NoNewline
+        [System.IO.File]::WriteAllText($target, $content, [System.Text.UTF8Encoding]::new($false))
     }
 
     Write-Host "Generated $($generated.Count) Kotlin binding file(s) to $outAbs"
