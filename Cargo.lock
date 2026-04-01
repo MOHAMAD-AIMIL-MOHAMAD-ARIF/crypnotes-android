@@ -326,6 +326,7 @@ version = "0.1.0"
 dependencies = [
  "argon2",
  "chacha20poly1305",
+ "crypnotes-versioning",
  "rand_core 0.6.4",
  "secrecy",
  "thiserror 1.0.69",
@@ -336,6 +337,7 @@ dependencies = [
 name = "crypnotes-doc"
 version = "0.1.0"
 dependencies = [
+ "crypnotes-versioning",
  "serde",
  "serde_json",
  "thiserror 1.0.69",
@@ -382,6 +384,10 @@ dependencies = [
  "serde",
  "thiserror 1.0.69",
 ]
+
+[[package]]
+name = "crypnotes-versioning"
+version = "0.1.0"
 
 [[package]]
 name = "crypto-common"

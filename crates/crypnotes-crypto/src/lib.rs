@@ -4,6 +4,8 @@ use chacha20poly1305::{XChaCha20Poly1305, XNonce};
 use secrecy::SecretBox;
 use thiserror::Error;
 
+pub use crypnotes_versioning::ENCRYPTION_CONTAINER_VERSION;
+
 pub const KEY_LEN: usize = 32;
 pub const NONCE_LEN: usize = 24;
 pub const MIN_SALT_LEN: usize = 16;
@@ -134,6 +136,10 @@ fn new_cipher(kek: &[u8]) -> Result<XChaCha20Poly1305, CryptoError> {
     XChaCha20Poly1305::new_from_slice(kek).map_err(|_| CryptoError::InvalidKeyLen)
 }
 
+pub fn current_encryption_container_version() -> u32 {
+    ENCRYPTION_CONTAINER_VERSION
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -167,5 +173,13 @@ mod tests {
 
         let result = decrypt_payload(&kek, &tampered, b"aad");
         assert!(matches!(result, Err(CryptoError::Aead)));
+    }
+
+    #[test]
+    fn encryption_container_version_matches_shared_constant() {
+        assert_eq!(
+            current_encryption_container_version(),
+            ENCRYPTION_CONTAINER_VERSION
+        );
     }
 }

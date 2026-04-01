@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "crates/crypnotes-versioning",
   "crates/crypnotes-ids",
   "crates/crypnotes-crypto",
   "crates/crypnotes-doc",

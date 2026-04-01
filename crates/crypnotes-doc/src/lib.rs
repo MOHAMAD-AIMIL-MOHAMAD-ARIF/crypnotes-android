@@ -2,6 +2,9 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use thiserror::Error;
 
+pub use crypnotes_versioning::DOC_SCHEMA_VERSION;
+pub use crypnotes_versioning::NOTE_PAYLOAD_SCHEMA_VERSION;
+
 pub const NOTE_CHAR_LIMIT: usize = 20_000;
 const ALLOWED_BLOCK_TYPES: &[&str] = &[
     "paragraph",
@@ -133,6 +136,14 @@ fn parse_doc(canonical_json: &str) -> Result<CanonicalDocument, DocumentError> {
     serde_json::from_str(canonical_json).map_err(|err| DocumentError::InvalidJson(err.to_string()))
 }
 
+pub fn current_doc_schema_version() -> u32 {
+    DOC_SCHEMA_VERSION
+}
+
+pub fn current_note_payload_schema_version() -> u32 {
+    NOTE_PAYLOAD_SCHEMA_VERSION
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -178,5 +189,14 @@ mod tests {
         assert_eq!(reverted_doc.blocks[1].block_type, "paragraph");
         assert_eq!(reverted_doc.blocks[0].text, "Top paragraph");
         assert_eq!(reverted_doc.blocks[1].text, "Second line");
+    }
+
+    #[test]
+    fn schema_version_accessors_match_shared_constants() {
+        assert_eq!(current_doc_schema_version(), DOC_SCHEMA_VERSION);
+        assert_eq!(
+            current_note_payload_schema_version(),
+            NOTE_PAYLOAD_SCHEMA_VERSION
+        );
     }
 }
